@@ -25,7 +25,7 @@ class minecraft {
     #content => template('minecraft/minecraft.service.erb'),
     # on server at /etc/puppetlabs/code/environments/production/site/minecraft/templates/minecraft.service.erb
 
-    source => 'puppet:///minecraft/minecraft.service',
+    source => 'puppet:///modules/minecraft/minecraft.service',
     # on server at /etc/puppetlabs/code/environments/production/site/minecraft/files/minecraft.service
     notify  => Exec["daemon-reload"],
   }
