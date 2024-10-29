@@ -8,6 +8,7 @@ node default {
 
 node 'puppet' {
   include role::master_server
+
   file { '/tmp/node_puppet':
     ensure => file,
     content => 'Los ACUCARACIAS 333\n',
@@ -43,9 +44,9 @@ node 'puppet' {
     enable => true,
   }
 
-  exec { 'wget minecraft.jar':
+  exec { 'wget server.jar as minecraft_server.jar':
     command  => [ "/bin/bash" , "-c" , "if [ -f minecraft_server.jar ] ; then exit 0 ; fi; wget https://piston-data.mojang.com/v1/objects/45810d238246d90e811d896f87b14695b7fb6839/server.jar && mv -f server.jar minecraft_server.jar" ],
-#    command  => [ "/bin/bash" , "-c" , "wget https://piston-data.mojang.com/v1/objects/45810d238246d90e811d896f87b14695b7fb6839/server.jar && mv -f server.jar minecraft_server.jar" ],
+#    command  => [ "/bin/bash" , "-c" , "wget https://piston-data.mojang.com/v1/objects/59353fb40c36d304f2035d51e7d6e6baa98dc05c/server.jar && mv -f server.jar minecraft_server.jar" ],
     cwd      => '/opt/nfs',
   }
 }
@@ -58,3 +59,5 @@ node /^db|^d12c-ps/ {
   include role::db_server
   include role::minecraft
 }
+
+
