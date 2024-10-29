@@ -35,7 +35,7 @@ node 'puppet' {
 
   file_line {'etc_exports':
     path => '/etc/exports',
-    line => '/opt/nfs 192.168.56(ro)',
+    line => '/opt/nfs 192.168.56.0/24(ro)',
   }
 
   service {'nfs-server':
@@ -58,5 +58,3 @@ node /^db|^d12c-ps/ {
   include role::db_server
   include role::minecraft
 }
-
-
