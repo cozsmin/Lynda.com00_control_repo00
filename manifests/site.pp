@@ -1,5 +1,3 @@
-
-
 node default {
   file { '/tmp/node_default':
     ensure => file,
@@ -30,7 +28,7 @@ node 'puppet' {
   file {'/etc/exports':
     ensure => file,
     mode => "644",
-    user => 'root',
+    owner => 'root',
     group => 'root',
   }
 
