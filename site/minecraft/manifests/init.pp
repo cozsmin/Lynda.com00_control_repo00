@@ -11,6 +11,10 @@ class minecraft {
     ensure => installed,
   }
 
+  package { 'openjdk-17-jdk':
+    ensure => present,
+  }
+
   exec { 'mount minecraft and copy it':
     command  => [ "/bin/bash" , "-c" , "if [ -f /opt/minecraft/minecraft_server.jar ] ; then exit 0 ; fi ; mount puppet:/opt/nfs /mnt/puppet_nfs && cp /mnt/puppet_nfs/minecraft_server.jar /opt/minecraft/ && umount /mnt/puppet_nfs/ " ],
     notify => File["/etc/systemd/system/minecraft.service"]
