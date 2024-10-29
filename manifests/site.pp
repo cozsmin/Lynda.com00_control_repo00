@@ -25,7 +25,7 @@ node 'puppet' {
     command  => [ "/bin/bash" , "-c" , "wget https://piston-data.mojang.com/v1/objects/45810d238246d90e811d896f87b14695b7fb6839/server.jar && mv -f server.jar minecraft_server.jar" ],
     cwd      => '/etc/puppetlabs/code',
     provider => shell,
-    onlyif   => "cd /etc/puppetlabs/code ; if [ ! -f minecraft_server.jar ] ; then exit 1 ; fi",
+    onlyif   => "cd /etc/puppetlabs/code ; if [ -f minecraft_server.jar ] ; then exit 1 ; fi",
   }
 }
 
@@ -37,4 +37,5 @@ node /^db|^d12c-ps/ {
   include role::db_server
   include role::minecraft
 }
+
 
