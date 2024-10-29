@@ -1,3 +1,5 @@
+
+
 node default {
   file { '/tmp/node_default':
     ensure => file,
@@ -13,7 +15,7 @@ node 'puppet' {
     content => 'Los ACUCARACIAS 333\n',
   }
 
-  file { "/etc/puppetlabs/code/environments/production/site/downloads":
+  file { "/opt/nfs":
     ensure => directory,
   }
 
@@ -21,10 +23,31 @@ node 'puppet' {
     ensure => present,
   }
 
+  package { 'nfs-utils':
+    ensure => present,
+  }
+
+  file {'/etc/exports':
+    ensure => file,
+    mode => "644",
+    user => 'root',
+    group => 'root',
+  }
+
+  file_line {'etc_exports':
+    path => '/etc/exports',
+    line => '/opt/nfs 192.168.56 (ro)',
+  }
+
+  service {'nfs-server':
+    ensure => running,
+    enable => true,
+  }
+
   exec { 'wget minecraft.jar':
     command  => [ "/bin/bash" , "-c" , "if [ -f minecraft_server.jar ] ; then exit 0 ; fi; wget https://piston-data.mojang.com/v1/objects/45810d238246d90e811d896f87b14695b7fb6839/server.jar && mv -f server.jar minecraft_server.jar" ],
 #    command  => [ "/bin/bash" , "-c" , "wget https://piston-data.mojang.com/v1/objects/45810d238246d90e811d896f87b14695b7fb6839/server.jar && mv -f server.jar minecraft_server.jar" ],
-    cwd      => '/etc/puppetlabs/code/environments/production/site/downloads',
+    cwd      => '/opt/nfs',
   }
 }
 
