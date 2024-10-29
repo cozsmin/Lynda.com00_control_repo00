@@ -17,8 +17,8 @@ class minecraft {
   }
 
   file { '/etc/systemd/system/minecraft.service':
-    ensure: file,
-	content => template('minecraft/minecraft.service.erb'),
+    ensure=> file,
+    content => template('minecraft/minecraft.service.erb'),
     # on server at /etc/puppetlabs/code/environments/production/site/minecraft/templates/minecraft.service.erb
     notify  => Exec["daemon-reload"],
   }
@@ -35,5 +35,4 @@ class minecraft {
   }
 
 }
-
 
