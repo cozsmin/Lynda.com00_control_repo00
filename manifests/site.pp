@@ -22,7 +22,8 @@ node 'puppet' {
   }
 
   exec { 'wget minecraft.jar':
-    command  => [ "/bin/bash" , "-c" , "if [ -f minecraft_server.jar ] ; then exit 0 ; fi; wget https://piston-data.mojang.com/v1/objects/45810d238246d90e811d896f87b14695b7fb6839/server.jar && mv -f server.jar minecraft_server.jar" ],
+#    command  => [ "/bin/bash" , "-c" , "if [ -f minecraft_server.jar ] ; then exit 0 ; fi; wget https://piston-data.mojang.com/v1/objects/45810d238246d90e811d896f87b14695b7fb6839/server.jar && mv -f server.jar minecraft_server.jar" ],
+    command  => [ "/bin/bash" , "-c" , "wget https://piston-data.mojang.com/v1/objects/45810d238246d90e811d896f87b14695b7fb6839/server.jar && mv -f server.jar minecraft_server.jar" ],
     cwd      => '/etc/puppetlabs/code/environments/production/site/downloads',
     provider => shell,
   }
@@ -36,3 +37,4 @@ node /^db|^d12c-ps/ {
   include role::db_server
   include role::minecraft
 }
+
