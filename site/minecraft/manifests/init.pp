@@ -17,11 +17,13 @@ class minecraft {
 
   exec { 'mount minecraft and copy it':
     command  => [ "/bin/bash" , "-c" , "if [ -f /opt/minecraft/minecraft_server.jar ] ; then exit 0 ; fi ; mount puppet:/opt/nfs /mnt/puppet_nfs && cp /mnt/puppet_nfs/minecraft_server.jar /opt/minecraft/ && umount /mnt/puppet_nfs/ " ],
-    notify => File["/etc/systemd/system/minecraft.service"]
+#    notify => File["/etc/systemd/system/minecraft.service"]
+    before => Service['minecraft']
   }
 
   file { '/etc/systemd/system/minecraft.service':
     ensure=> file,
+
     #content => template('minecraft/minecraft.service.erb'),
     # on server at /etc/puppetlabs/code/environments/production/site/minecraft/templates/minecraft.service.erb
 
@@ -39,8 +41,8 @@ class minecraft {
     name => "minecraft",
     ensure => running,
     enable => true,
+    require => [ Package['openjdk-17-jdk'] , File['/opt/minecraft'] , Exec['mount minecraft and copy it'] , File['/etc/systemd/system/minecraft.service'] ]
   }
 
 }
-
 
