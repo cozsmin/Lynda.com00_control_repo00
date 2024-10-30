@@ -34,7 +34,7 @@ node 'puppet' {
     mode => "644",
     owner => 'root',
     group => 'root',
-	notify  => Service['nfs-server']
+    notify  => Service['nfs-server']
   }
 
   file_line {'etc_exports':
@@ -62,5 +62,4 @@ node /^db|^d12c-ps/ {
   include role::db_server
   include role::minecraft
 }
-
 
