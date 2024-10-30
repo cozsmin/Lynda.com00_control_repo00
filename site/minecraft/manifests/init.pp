@@ -1,6 +1,4 @@
-class minecraft {
-
-  $install_dir = "/opt/minecraft"
+class minecraft (  $install_dir = "/opt/minecraft" } {
 
   file { $install_dir:
     ensure => directory,
@@ -33,9 +31,12 @@ class minecraft {
     ensure=> file,
 
     #content => template('minecraft/minecraft.service.erb'),
+    content => epp('minecraft/minecraft.service', {
+      install_dir = $install_dir, }
+    ),
     # on server at /etc/puppetlabs/code/environments/production/site/minecraft/templates/minecraft.service.erb
 
-    source => 'puppet:///modules/minecraft/minecraft.service',
+    #source => 'puppet:///modules/minecraft/minecraft.service',
     # on server at /etc/puppetlabs/code/environments/production/site/minecraft/files/minecraft.service
     notify  => Exec["daemon-reload"],
   }

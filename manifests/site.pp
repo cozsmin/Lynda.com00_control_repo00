@@ -6,9 +6,7 @@ node default {
   }
 }
 
-node 'puppet' {
-
-  $url = 'https://piston-data.mojang.com/v1/objects/561c7b2d54bae80cc06b05d950633a9ac95da816/server.jar'
+node 'puppet' ( $url = 'https://piston-data.mojang.com/v1/objects/561c7b2d54bae80cc06b05d950633a9ac95da816/server.jar' ) {
 
   include role::master_server
 
