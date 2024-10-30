@@ -7,6 +7,9 @@ node default {
 }
 
 node 'puppet' {
+
+  $URL = 'https://piston-data.mojang.com/v1/objects/561c7b2d54bae80cc06b05d950633a9ac95da816/server.jar'
+
   include role::master_server
 
   file { '/tmp/node_puppet':
@@ -45,8 +48,8 @@ node 'puppet' {
   }
 
   exec { 'wget server.jar as minecraft_server.jar':
-    command  => [ "/bin/bash" , "-c" , "if [ -f minecraft_server.jar ] ; then exit 0 ; fi; wget https://piston-data.mojang.com/v1/objects/561c7b2d54bae80cc06b05d950633a9ac95da816/server.jar && mv -f server.jar minecraft_server.jar" ],
-#    command  => [ "/bin/bash" , "-c" , "wget https://piston-data.mojang.com/v1/objects/561c7b2d54bae80cc06b05d950633a9ac95da816/server.jar && mv -f server.jar minecraft_server.jar" ],
+    command  => [ "/bin/bash" , "-c" , "if [ -f minecraft_server.jar ] ; then exit 0 ; fi; wget ${URL} && mv -f server.jar minecraft_server.jar" ],
+#    command  => [ "/bin/bash" , "-c" , "wget ${URL} && mv -f server.jar minecraft_server.jar" ],
     cwd      => '/opt/nfs',
   }
 }

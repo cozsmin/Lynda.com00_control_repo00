@@ -1,9 +1,12 @@
 class minecraft {
-  file { '/opt/minecraft':
+
+  $install_dir = "/opt/minecraft"
+
+  file { $install_dir:
     ensure => directory,
   }
 
-  file { '/opt/minecraft/eula.txt':
+  file { "${install_dir}/eula.txt":
     ensure => file,
     content => 'eula=true',
   }
@@ -21,7 +24,7 @@ class minecraft {
   }
 
   exec { 'mount minecraft and copy it':
-    command  => [ "/bin/bash" , "-c" , "if [ -f /opt/minecraft/minecraft_server.jar ] ; then exit 0 ; fi ; mount puppet:/opt/nfs /mnt/puppet_nfs && cp /mnt/puppet_nfs/minecraft_server.jar /opt/minecraft/ && umount /mnt/puppet_nfs/ " ],
+    command  => [ "/bin/bash" , "-c" , "if [ -f ${install_dir}/minecraft_server.jar ] ; then exit 0 ; fi ; mount puppet:/opt/nfs /mnt/puppet_nfs && cp /mnt/puppet_nfs/minecraft_server.jar ${install_dir} && umount /mnt/puppet_nfs/ " ],
 #    notify => File["/etc/systemd/system/minecraft.service"]
     before => Service['minecraft']
   }
@@ -46,7 +49,7 @@ class minecraft {
     name => "minecraft",
     ensure => running,
     enable => true,
-    require => [ Package['openjdk-17-jdk'] , File['/opt/minecraft'] , Exec['mount minecraft and copy it'] , File['/etc/systemd/system/minecraft.service'] ]
+    require => [ Package['openjdk-17-jdk'] , File[$install_dir] , File["${install_dir}/eula.txt"], Exec['mount minecraft and copy it'] , File['/etc/systemd/system/minecraft.service'] ]
   }
 
 }
