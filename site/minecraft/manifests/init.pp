@@ -2,7 +2,6 @@ class minecraft (  $install_dir = "/opt/minecraft" ) {
 
   file { $install_dir:
     ensure => directory,
-    recurse => true,
   }
 
   file { "${install_dir}/eula.txt":
