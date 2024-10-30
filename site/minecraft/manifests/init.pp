@@ -3,6 +3,11 @@ class minecraft {
     ensure => directory,
   }
 
+  file { '/opt/minecraft/eula.txt':
+    ensure => file,
+    content => 'eula=true',
+  }
+
   file { '/mnt/puppet_nfs':
     ensure => directory,
   }
@@ -45,4 +50,5 @@ class minecraft {
   }
 
 }
+
 
