@@ -32,7 +32,7 @@ class minecraft (  $install_dir = "/opt/minecraft" ) {
 
     #content => template('minecraft/minecraft.service.erb'),
     content => epp('minecraft/minecraft.service', {
-      install_dir = $install_dir, }
+      install_dir = $install_dir, sex = "SEX" }
     ),
     # on server at /etc/puppetlabs/code/environments/production/site/minecraft/templates/minecraft.service.erb
 
