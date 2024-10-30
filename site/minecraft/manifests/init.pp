@@ -1,4 +1,4 @@
-class minecraft (  $install_dir = "/opt/minecraft" } {
+class minecraft (  $install_dir = "/opt/minecraft" ) {
 
   file { $install_dir:
     ensure => directory,
