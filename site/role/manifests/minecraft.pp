@@ -2,7 +2,7 @@ class role::minecraft {
 
   #include minecraft
   class { 'minecraft':
-    install_dir => '/opt/acucaracia_minecraft',
+    install_dir => '/opt/acucaracia/minecraft',
   }
 }
 
